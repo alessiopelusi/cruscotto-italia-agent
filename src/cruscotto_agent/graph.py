@@ -6,7 +6,7 @@ from cruscotto_agent.mcp_setup import get_mvp_tools
 from cruscotto_agent.models import make_answering_model
 from cruscotto_agent.nodes import (
     classify_intent, route_by_scope, out_of_scope_node,
-    verify_node, make_call_model_node,
+    verify_node, make_call_model_node, route_after_verify
 )
 
 async def build_graph(checkpointer=None):
@@ -23,9 +23,10 @@ async def build_graph(checkpointer=None):
     graph.add_edge(START, "classify")
     graph.add_conditional_edges("classify", route_by_scope)
     graph.add_conditional_edges("agent", tools_condition, {"tools": "tools", END: "verify"})
+    graph.add_conditional_edges("verify", route_after_verify)
     graph.add_edge("tools", "agent")
     graph.add_edge("out_of_scope", END)
-    graph.add_edge("verify", END)
+
     
     return graph.compile(checkpointer=checkpointer)
     

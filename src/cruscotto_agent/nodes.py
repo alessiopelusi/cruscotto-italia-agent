@@ -1,8 +1,10 @@
 # cruscotto_agent/nodes.py
 import json
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
-from langgraph.graph import MessagesState
+from langgraph.graph import END, MessagesState
 from cruscotto_agent.models import judge_model, classifier_model
+
+MAX_GROUNDING_ATTEMPTS = 2  
 
 JUDGE_SYSTEM_PROMPT = """Sei un verificatore di accuratezza fattuale. Ricevi:
     1. Dati grezzi in JSON, presi da fonti ufficiali italiane.
@@ -43,16 +45,29 @@ async def verify_node(state):
         
     verdict = await judge_model.ainvoke([SystemMessage(JUDGE_SYSTEM_PROMPT), HumanMessage(user_prompt)])
 
+    attempts = state.get("grounding_attempts", 0) + 1
+
     if verdict.grounded:
         print("✅ Verificato dal giudice LLM")
+        return {"grounded": True, "grounding_attempts": attempts}
     else:
         print(f"⚠️ Claim non supportati secondo il giudice: {verdict.unsupported_claims}")
-       
-    return {}
+        if attempts >= MAX_GROUNDING_ATTEMPTS:
+            alert_message = AIMessage(f"Nota: alcune affermazioni non sono state verificabili rispetto ai dati disponibili: {verdict.unsupported_claims}")
+            return {"messages": [alert_message], "grounded": False, "grounding_attempts": attempts}
+    correction_message  = HumanMessage(f"""La risposta precedente conteneva affermazioni non supportate dai dati:
+        {verdict.unsupported_claims}
+
+        Riformula la risposta. Se hai già a disposizione i dati corretti, usali. Se invece la
+        risposta richiede dati che non hai ancora recuperato (es. un comune non ancora
+        interrogato), chiama i tool necessari per recuperarli prima di rispondere di nuovo.
+        Se un dato non è comunque ottenibile con gli strumenti disponibili, dichiaralo
+        esplicitamente invece di inventarlo.""")
+    return {"messages": [correction_message], "grounded": False, "grounding_attempts": attempts}
 
 async def classify_intent(state):
     result = await classifier_model.ainvoke([SystemMessage(CLASSIFIER_SYSTEM_PROMPT)] + state["messages"])
-    return {"in_scope": result.in_scope}
+    return {"in_scope": result.in_scope, "grounding_attempts": 0, "grounded": False}
 
 def route_by_scope(state):
     if state["in_scope"]:
@@ -68,3 +83,9 @@ def make_call_model_node(model_with_tools):
       response = await model_with_tools.ainvoke(state["messages"])
       return {"messages": [response]}
     return call_model
+
+
+def route_after_verify(state):
+    if state["grounded"] or state["grounding_attempts"] >= MAX_GROUNDING_ATTEMPTS:
+        return END
+    return "agent"

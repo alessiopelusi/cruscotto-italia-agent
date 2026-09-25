@@ -11,3 +11,5 @@ class GroundingVerdict(BaseModel):
 
 class AgentState(MessagesState):
     in_scope: bool
+    grounded: bool
+    grounding_attempts: int
