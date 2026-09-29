@@ -1,6 +1,6 @@
 [
   {
-    "prompt": "Qual è la popolazione di Bari?",
+    "prompt": "Qual Ã¨ la popolazione di Bari?",
     "raw_data": [
       {
         "count": 10,
@@ -291,7 +291,7 @@
         }
       }
     ],
-    "answer_text": "La popolazione di Bari è stimata in 316.248 abitanti (al 1° gennaio 2026)."
+    "answer_text": "La popolazione di Bari Ã¨ stimata in 316.248 abitanti (al 1Â° gennaio 2026)."
   },
   {
     "prompt": "Confronta il reddito medio di Torino e Genova",
@@ -761,7 +761,7 @@
         }
       }
     ],
-    "answer_text": "Il reddito medio dichiarato dai contribuenti nelle due città, basato sui dati dell'anno fiscale 2024, presenta la seguente situazione:\n\n*   **Torino:** 29.094 €\n*   **Genova:** 27.192 €\n\nIl reddito medio a Torino risulta quindi superiore di **1.902 €** rispetto a quello di Genova."
+    "answer_text": "Il reddito medio dichiarato dai contribuenti nelle due cittÃ , basato sui dati dell'anno fiscale 2024, presenta la seguente situazione:\n\n*   **Torino:** 29.094 â‚¬\n*   **Genova:** 27.192 â‚¬\n\nIl reddito medio a Torino risulta quindi superiore di **1.902 â‚¬** rispetto a quello di Genova."
   },
   {
     "prompt": "Quante scuole ci sono a Palermo?",
@@ -983,10 +983,10 @@
         }
       }
     ],
-    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti **498 plessi scolastici**.\n\nÈ importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono più plessi contemporaneamente)."
+    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti **498 plessi scolastici**.\n\nÃˆ importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono piÃ¹ plessi contemporaneamente)."
   },
   {
-    "prompt": "Qual è il tasso di disoccupazione di Catania?",
+    "prompt": "Qual Ã¨ il tasso di disoccupazione di Catania?",
     "raw_data": [
       {
         "count": 4,
@@ -1229,7 +1229,7 @@
         }
       }
     ],
-    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, è pari al **14,2%**."
+    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, Ã¨ pari al **14,2%**."
   },
   {
     "prompt": "Confronta la percentuale di raccolta differenziata tra Firenze e Bologna",
@@ -1683,7 +1683,7 @@
         }
       }
     ],
-    "answer_text": "Confrontando i dati ambientali più recenti, la situazione della raccolta differenziata nei due comuni è la seguente:\n\n*   **Bologna**: registra una percentuale di raccolta differenziata del **72,81%**.\n*   **Firenze**: registra una percentuale di raccolta differenziata del **60,69%**.\n\nIn sintesi, **Bologna** presenta una performance di raccolta differenziata superiore di circa 12 punti percentuali rispetto a Firenze."
+    "answer_text": "Confrontando i dati ambientali piÃ¹ recenti, la situazione della raccolta differenziata nei due comuni Ã¨ la seguente:\n\n*   **Bologna**: registra una percentuale di raccolta differenziata del **72,81%**.\n*   **Firenze**: registra una percentuale di raccolta differenziata del **60,69%**.\n\nIn sintesi, **Bologna** presenta una performance di raccolta differenziata superiore di circa 12 punti percentuali rispetto a Firenze."
   },
   {
     "prompt": "Quanti punti di ricarica elettrica ci sono a Verona?",
@@ -1916,7 +1916,7 @@
     "answer_text": "A Verona, in base ai dati aggiornati, sono presenti complessivamente **298 punti di ricarica** elettrica.\n\nDi questi, **265 risultano attivi** (pari all'88,9% del totale), con una potenza complessiva installata di 17.525,1 kW. Questo corrisponde a circa 1,04 punti di ricarica ogni 1.000 abitanti."
   },
   {
-    "prompt": "Qual è l'indice di vecchiaia di Venezia?",
+    "prompt": "Qual Ã¨ l'indice di vecchiaia di Venezia?",
     "raw_data": [
       {
         "count": 1,
@@ -2135,7 +2135,7 @@
         }
       }
     ],
-    "answer_text": "L'indice di vecchiaia del comune di Venezia è pari a **276** (dato riferito al 1° gennaio 2026)."
+    "answer_text": "L'indice di vecchiaia del comune di Venezia Ã¨ pari a **276** (dato riferito al 1Â° gennaio 2026)."
   },
   {
     "prompt": "Confronta il numero di opere pubbliche tra Padova e Trieste",
@@ -2155,7 +2155,7 @@
           },
           {
             "istat_code": "028048",
-            "denominazione": "Maserà di Padova",
+            "denominazione": "MaserÃ  di Padova",
             "provincia": "PD",
             "regione": "Veneto",
             "codice_ipa": "c_f011",
@@ -2605,6 +2605,6 @@
         }
       }
     ],
-    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.270 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 €/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 €/abitante).\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (€) | Importo per abitante (€) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.270 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (più progetti di entità spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante più elevata nonostante il numero inferiore di opere."
+    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.270 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 â‚¬/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 â‚¬/abitante).\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (â‚¬) | Importo per abitante (â‚¬) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.270 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (piÃ¹ progetti di entitÃ  spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante piÃ¹ elevata nonostante il numero inferiore di opere."
   }
 ]

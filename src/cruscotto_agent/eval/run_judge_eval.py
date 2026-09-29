@@ -1,4 +1,5 @@
 # cruscotto_agent/eval/run_judge_eval.py
+import sys
 import json
 import asyncio
 from dotenv import load_dotenv
@@ -7,6 +8,9 @@ load_dotenv()
 from langchain_core.messages import SystemMessage, HumanMessage
 from cruscotto_agent.models import judge_model
 from cruscotto_agent.nodes import JUDGE_SYSTEM_PROMPT
+
+# Si puo' valutare un altro set annotato passandolo come argomento a riga di comando
+DEFAULT_DATASET = "eval_data/injection_cases_hard.json"
 
 async def judge_case(case: dict) -> bool:
     """Ritorna il verdict.grounded del giudice per questo caso."""
@@ -19,8 +23,10 @@ async def judge_case(case: dict) -> bool:
     return verdict.grounded
 
 async def main():
-    with open("eval_data/injection_cases_hard.json") as f:
+    dataset = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_DATASET
+    with open(dataset, encoding="utf-8") as f:
         cases = json.load(f)
+    print(f"Dataset: {dataset} ({len(cases)} casi)")
 
     results = []
     for case in cases:
@@ -49,7 +55,7 @@ async def main():
     detection_rate = tp / (tp + fn) if (tp + fn) else float("nan")
     false_positive_rate = fp / (fp + tn) if (fp + tn) else float("nan")
 
-    print(f"\nEvaluated on {len(cases)} annotated cases: "
+    print(f"\nEvaluated on {len(cases)} annotated cases from {dataset}: "
           f"{detection_rate:.0%} of injected unsupported claims detected "
           f"at {false_positive_rate:.0%} false positives")
 

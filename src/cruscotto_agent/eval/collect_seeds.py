@@ -35,7 +35,7 @@ async def collect_seeds():
             "answer_text": extract_answer_text(response["messages"][-1].content),
         })
         print(f"OK: {prompt}")
-    with open("eval_data/seeds.json", "w") as f:
+    with open("eval_data/seeds.json", "w", encoding="utf-8") as f:
         json.dump(seeds, f, ensure_ascii=False, indent=2)
     print(f"\n{len(seeds)} seed puliti salvati.")
 

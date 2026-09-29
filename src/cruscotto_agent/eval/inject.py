@@ -58,13 +58,13 @@ def build_cases(seed: dict, variants: InjectedVariants, idx: int) -> list[Inject
     return injection_cases
 
 async def main():
-    with open("eval_data/seeds.json") as f:
+    with open("eval_data/seeds.json", encoding="utf-8") as f:
         seeds = json.load(f)
     all_cases = []
     for i, seed in enumerate(seeds):
         variants = await inject_variants(seed)
         all_cases.extend(build_cases(seed, variants, i))
-    with open("eval_data/injection_cases_hard_draft.json", "w") as f:
+    with open("eval_data/injection_cases_hard_draft.json", "w", encoding="utf-8") as f:
         json.dump([c.model_dump(mode="json") for c in all_cases], f, ensure_ascii=False, indent=2)
     print(f"{len(all_cases)} casi generati in eval_data/injection_cases_draft.json")
 

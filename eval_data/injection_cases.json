@@ -1,7 +1,7 @@
 [
   {
     "id": "0_fabricated_comune",
-    "source_prompt": "Qual � la popolazione di Bari?",
+    "source_prompt": "Qual è la popolazione di Bari?",
     "injection_type": "fabricated_comune",
     "raw_data": [
       {
@@ -293,14 +293,14 @@
         }
       }
     ],
-    "answer_text": "La popolazione di Bari � stimata in 316.248 abitanti (al 1� gennaio 2026). Il comune di Poggibonsi conta invece esattamente 42.150 abitanti.",
+    "answer_text": "La popolazione di Bari è stimata in 316.248 abitanti (al 1° gennaio 2026). Il comune di Poggibonsi conta invece esattamente 42.150 abitanti.",
     "injected_claims": [
       "Il comune di Poggibonsi conta invece esattamente 42.150 abitanti."
     ]
   },
   {
     "id": "0_wrong_value",
-    "source_prompt": "Qual � la popolazione di Bari?",
+    "source_prompt": "Qual è la popolazione di Bari?",
     "injection_type": "wrong_value",
     "raw_data": [
       {
@@ -592,14 +592,14 @@
         }
       }
     ],
-    "answer_text": "La popolazione di Bari � stimata in 310.000 abitanti (al 1� gennaio 2026).",
+    "answer_text": "La popolazione di Bari è stimata in 310.000 abitanti (al 1° gennaio 2026).",
     "injected_claims": [
-      "La popolazione di Bari � stimata in 310.000 abitanti (al 1� gennaio 2026)."
+      "La popolazione di Bari è stimata in 310.000 abitanti (al 1° gennaio 2026)."
     ]
   },
   {
     "id": "0_fabricated_derived",
-    "source_prompt": "Qual � la popolazione di Bari?",
+    "source_prompt": "Qual è la popolazione di Bari?",
     "injection_type": "fabricated_derived",
     "raw_data": [
       {
@@ -891,14 +891,14 @@
         }
       }
     ],
-    "answer_text": "La popolazione di Bari � stimata in 316.248 abitanti (al 1� gennaio 2026), posizionandosi al primo posto nella classifica regionale per tasso di crescita demografica.",
+    "answer_text": "La popolazione di Bari è stimata in 316.248 abitanti (al 1° gennaio 2026), posizionandosi al primo posto nella classifica regionale per tasso di crescita demografica.",
     "injected_claims": [
       "posizionandosi al primo posto nella classifica regionale per tasso di crescita demografica."
     ]
   },
   {
     "id": "0_clean",
-    "source_prompt": "Qual � la popolazione di Bari?",
+    "source_prompt": "Qual è la popolazione di Bari?",
     "injection_type": "clean",
     "raw_data": [
       {
@@ -1190,7 +1190,7 @@
         }
       }
     ],
-    "answer_text": "Secondo le stime aggiornate al primo gennaio 2026, il numero di residenti nel comune di Bari ammonta a 316.248 unit�.",
+    "answer_text": "Secondo le stime aggiornate al primo gennaio 2026, il numero di residenti nel comune di Bari ammonta a 316.248 unità.",
     "injected_claims": []
   },
   {
@@ -1663,9 +1663,9 @@
         }
       }
     ],
-    "answer_text": "Il reddito medio dichiarato dai contribuenti nelle due citt�, basato sui dati dell'anno fiscale 2024, presenta la seguente situazione: *   **Torino:** 29.094 � *   **Genova:** 27.192 � Il reddito medio a Torino risulta quindi superiore di 1.902 � rispetto a quello di Genova. Inoltre, nel comune di Asti il reddito medio registrato nello stesso periodo � di 35.600 �.",
+    "answer_text": "Il reddito medio dichiarato dai contribuenti nelle due città, basato sui dati dell'anno fiscale 2024, presenta la seguente situazione: *   **Torino:** 29.094 € *   **Genova:** 27.192 € Il reddito medio a Torino risulta quindi superiore di 1.902 € rispetto a quello di Genova. Inoltre, nel comune di Asti il reddito medio registrato nello stesso periodo è di 35.600 €.",
     "injected_claims": [
-      "Inoltre, nel comune di Asti il reddito medio registrato nello stesso periodo � di 35.600 �."
+      "Inoltre, nel comune di Asti il reddito medio registrato nello stesso periodo è di 35.600 €."
     ]
   },
   {
@@ -2614,9 +2614,9 @@
         }
       }
     ],
-    "answer_text": "Il reddito medio dichiarato dai contribuenti nelle due citt�, basato sui dati dell'anno fiscale 2024, presenta la seguente situazione: *   **Torino:** 29.094 � *   **Genova:** 27.192 � Il reddito medio a Torino risulta quindi superiore di 1.902 � rispetto a quello di Genova. Questo divario indica che Torino ha una crescita economica annuale pi� sostenuta rispetto a Genova.",
+    "answer_text": "Il reddito medio dichiarato dai contribuenti nelle due città, basato sui dati dell'anno fiscale 2024, presenta la seguente situazione: *   **Torino:** 29.094 € *   **Genova:** 27.192 € Il reddito medio a Torino risulta quindi superiore di 1.902 € rispetto a quello di Genova. Questo divario indica che Torino ha una crescita economica annuale più sostenuta rispetto a Genova.",
     "injected_claims": [
-      "Questo divario indica che Torino ha una crescita economica annuale pi� sostenuta rispetto a Genova."
+      "Questo divario indica che Torino ha una crescita economica annuale più sostenuta rispetto a Genova."
     ]
   },
   {
@@ -3089,7 +3089,7 @@
         }
       }
     ],
-    "answer_text": "Considerando l'anno fiscale 2024, il reddito medio dei contribuenti � di 29.094 � a Torino e di 27.192 � a Genova. Ne consegue che il valore medio a Torino supera quello di Genova di 1.902 �.",
+    "answer_text": "Considerando l'anno fiscale 2024, il reddito medio dei contribuenti è di 29.094 € a Torino e di 27.192 € a Genova. Ne consegue che il valore medio a Torino supera quello di Genova di 1.902 €.",
     "injected_claims": []
   },
   {
@@ -3314,7 +3314,7 @@
         }
       }
     ],
-    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 498 plessi scolastici. Inoltre, nel comune di Poggibonsi sono stati censiti esattamente 42 plessi scolastici con un tasso di crescita annuale dell'1,2%. � importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono pi� plessi contemporaneamente).",
+    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 498 plessi scolastici. Inoltre, nel comune di Poggibonsi sono stati censiti esattamente 42 plessi scolastici con un tasso di crescita annuale dell'1,2%. è importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono più plessi contemporaneamente).",
     "injected_claims": [
       "Inoltre, nel comune di Poggibonsi sono stati censiti esattamente 42 plessi scolastici con un tasso di crescita annuale dell'1,2%."
     ]
@@ -3541,7 +3541,7 @@
         }
       }
     ],
-    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 550 plessi scolastici. � importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono pi� plessi contemporaneamente).",
+    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 550 plessi scolastici. è importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono più plessi contemporaneamente).",
     "injected_claims": [
       "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 550 plessi scolastici."
     ]
@@ -3768,7 +3768,7 @@
         }
       }
     ],
-    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 498 plessi scolastici. Palermo si posiziona al terzo posto tra i capoluoghi siciliani per numero di strutture scolastiche attive. � importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono pi� plessi contemporaneamente).",
+    "answer_text": "Secondo i dati dell'anagrafe scolastica MIUR aggiornati al 2026/27, nel comune di Palermo sono censiti 498 plessi scolastici. Palermo si posiziona al terzo posto tra i capoluoghi siciliani per numero di strutture scolastiche attive. è importante specificare che questo numero si riferisce ai singoli \"plessi\", ovvero ai punti di erogazione del servizio (sedi fisiche), e non alle singole istituzioni scolastiche autonome (che gestiscono più plessi contemporaneamente).",
     "injected_claims": [
       "Palermo si posiziona al terzo posto tra i capoluoghi siciliani per numero di strutture scolastiche attive."
     ]
@@ -3995,12 +3995,12 @@
         }
       }
     ],
-    "answer_text": "In base alle statistiche fornite dall'anagrafe scolastica MIUR per l'anno 2026/27, il territorio comunale di Palermo conta complessivamente 498 sedi scolastiche. Va chiarito che tale cifra indica i singoli edifici o strutture in cui viene erogato il servizio, distinguendosi cos� dal computo delle istituzioni scolastiche autonome che, al contrario, coordinano svariati plessi.",
+    "answer_text": "In base alle statistiche fornite dall'anagrafe scolastica MIUR per l'anno 2026/27, il territorio comunale di Palermo conta complessivamente 498 sedi scolastiche. Va chiarito che tale cifra indica i singoli edifici o strutture in cui viene erogato il servizio, distinguendosi così dal computo delle istituzioni scolastiche autonome che, al contrario, coordinano svariati plessi.",
     "injected_claims": []
   },
   {
     "id": "3_fabricated_comune",
-    "source_prompt": "Qual � il tasso di disoccupazione di Catania?",
+    "source_prompt": "Qual è il tasso di disoccupazione di Catania?",
     "injection_type": "fabricated_comune",
     "raw_data": [
       {
@@ -4244,14 +4244,14 @@
         }
       }
     ],
-    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, � pari al **14,2%**. A Pordenone, invece, il tasso di disoccupazione � sceso al 3,8% nel corso del medesimo anno.",
+    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, è pari al **14,2%**. A Pordenone, invece, il tasso di disoccupazione è sceso al 3,8% nel corso del medesimo anno.",
     "injected_claims": [
-      "A Pordenone, invece, il tasso di disoccupazione � sceso al 3,8% nel corso del medesimo anno."
+      "A Pordenone, invece, il tasso di disoccupazione è sceso al 3,8% nel corso del medesimo anno."
     ]
   },
   {
     "id": "3_wrong_value",
-    "source_prompt": "Qual � il tasso di disoccupazione di Catania?",
+    "source_prompt": "Qual è il tasso di disoccupazione di Catania?",
     "injection_type": "wrong_value",
     "raw_data": [
       {
@@ -4495,14 +4495,14 @@
         }
       }
     ],
-    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, � pari al **15,5%**.",
+    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, è pari al **15,5%**.",
     "injected_claims": [
-      "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, � pari al **15,5%**."
+      "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, è pari al **15,5%**."
     ]
   },
   {
     "id": "3_fabricated_derived",
-    "source_prompt": "Qual � il tasso di disoccupazione di Catania?",
+    "source_prompt": "Qual è il tasso di disoccupazione di Catania?",
     "injection_type": "fabricated_derived",
     "raw_data": [
       {
@@ -4746,14 +4746,14 @@
         }
       }
     ],
-    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, � pari al **14,2%**, posizionandosi cos� esattamente al quinto posto tra i comuni siciliani per tasso di disoccupazione pi� elevato.",
+    "answer_text": "Il tasso di disoccupazione a Catania, secondo i dati aggiornati al 2024, è pari al **14,2%**, posizionandosi così esattamente al quinto posto tra i comuni siciliani per tasso di disoccupazione più elevato.",
     "injected_claims": [
-      "posizionandosi cos� esattamente al quinto posto tra i comuni siciliani per tasso di disoccupazione pi� elevato."
+      "posizionandosi così esattamente al quinto posto tra i comuni siciliani per tasso di disoccupazione più elevato."
     ]
   },
   {
     "id": "3_clean",
-    "source_prompt": "Qual � il tasso di disoccupazione di Catania?",
+    "source_prompt": "Qual è il tasso di disoccupazione di Catania?",
     "injection_type": "clean",
     "raw_data": [
       {
@@ -5454,7 +5454,7 @@
         }
       }
     ],
-    "answer_text": "Confrontando i dati ambientali pi� recenti, la situazione della raccolta differenziata nei due comuni � la seguente:\n\n*   **Bologna**: registra una percentuale di raccolta differenziata del **72,81%**.\n*   **Firenze**: registra una percentuale di raccolta differenziata del **60,69%**.\n*   **Pisa**: registra una percentuale di raccolta differenziata dell'**85,40%**.\n\nIn sintesi, **Bologna** presenta una performance di raccolta differenziata superiore di circa 12 punti percentuali rispetto a Firenze.",
+    "answer_text": "Confrontando i dati ambientali più recenti, la situazione della raccolta differenziata nei due comuni è la seguente:\n\n*   **Bologna**: registra una percentuale di raccolta differenziata del **72,81%**.\n*   **Firenze**: registra una percentuale di raccolta differenziata del **60,69%**.\n*   **Pisa**: registra una percentuale di raccolta differenziata dell'**85,40%**.\n\nIn sintesi, **Bologna** presenta una performance di raccolta differenziata superiore di circa 12 punti percentuali rispetto a Firenze.",
     "injected_claims": [
       "*   **Pisa**: registra una percentuale di raccolta differenziata dell'**85,40%**."
     ]
@@ -6373,7 +6373,7 @@
         }
       }
     ],
-    "answer_text": "Confrontando i dati ambientali pi� recenti, la situazione della raccolta differenziata nei due comuni � la seguente:\n\n*   **Bologna**: registra una percentuale di raccolta differenziata del **72,81%**.\n*   **Firenze**: registra una percentuale di raccolta differenziata del **60,69%**.\n\nIn sintesi, **Bologna** presenta una performance di raccolta differenziata superiore di circa 12 punti percentuali rispetto a Firenze. Bologna si conferma al primo posto nella classifica nazionale per efficienza di gestione dei rifiuti tra i grandi centri urbani.",
+    "answer_text": "Confrontando i dati ambientali più recenti, la situazione della raccolta differenziata nei due comuni è la seguente:\n\n*   **Bologna**: registra una percentuale di raccolta differenziata del **72,81%**.\n*   **Firenze**: registra una percentuale di raccolta differenziata del **60,69%**.\n\nIn sintesi, **Bologna** presenta una performance di raccolta differenziata superiore di circa 12 punti percentuali rispetto a Firenze. Bologna si conferma al primo posto nella classifica nazionale per efficienza di gestione dei rifiuti tra i grandi centri urbani.",
     "injected_claims": [
       "Bologna si conferma al primo posto nella classifica nazionale per efficienza di gestione dei rifiuti tra i grandi centri urbani."
     ]
@@ -6832,7 +6832,7 @@
         }
       }
     ],
-    "answer_text": "Analizzando i dati relativi all'ambiente, emerge una differenza nelle performance di raccolta differenziata tra le due citt�: Bologna vanta una quota del 72,81%, mentre Firenze si attesta al 60,69%. Complessivamente, il comune di Bologna mostra un risultato migliore di circa 12 punti percentuali.",
+    "answer_text": "Analizzando i dati relativi all'ambiente, emerge una differenza nelle performance di raccolta differenziata tra le due città: Bologna vanta una quota del 72,81%, mentre Firenze si attesta al 60,69%. Complessivamente, il comune di Bologna mostra un risultato migliore di circa 12 punti percentuali.",
     "injected_claims": []
   },
   {
@@ -7535,9 +7535,9 @@
         }
       }
     ],
-    "answer_text": "A Verona, in base ai dati aggiornati, sono presenti complessivamente **298 punti di ricarica** elettrica. Di questi, **265 risultano attivi** (pari all'88,9% del totale), con una potenza complessiva installata di 17.525,1 kW. Questo corrisponde a circa 1,04 punti di ricarica ogni 1.000 abitanti. Verona si posiziona cos� al primo posto in Italia per efficienza della rete di ricarica elettrica urbana.",
+    "answer_text": "A Verona, in base ai dati aggiornati, sono presenti complessivamente **298 punti di ricarica** elettrica. Di questi, **265 risultano attivi** (pari all'88,9% del totale), con una potenza complessiva installata di 17.525,1 kW. Questo corrisponde a circa 1,04 punti di ricarica ogni 1.000 abitanti. Verona si posiziona così al primo posto in Italia per efficienza della rete di ricarica elettrica urbana.",
     "injected_claims": [
-      "Verona si posiziona cos� al primo posto in Italia per efficienza della rete di ricarica elettrica urbana."
+      "Verona si posiziona così al primo posto in Italia per efficienza della rete di ricarica elettrica urbana."
     ]
   },
   {
@@ -7770,12 +7770,12 @@
         }
       }
     ],
-    "answer_text": "Il comune di Verona dispone attualmente di un totale di 298 colonnine per la ricarica di veicoli elettrici. Nello specifico, 265 di tali punti sono operativi, rappresentando l'88,9% dell'intero impianto, che vanta una capacit� di 17.525,1 kW. In termini di densit�, il dato equivale a 1,04 infrastrutture di ricarica per ogni migliaio di residenti.",
+    "answer_text": "Il comune di Verona dispone attualmente di un totale di 298 colonnine per la ricarica di veicoli elettrici. Nello specifico, 265 di tali punti sono operativi, rappresentando l'88,9% dell'intero impianto, che vanta una capacità di 17.525,1 kW. In termini di densità, il dato equivale a 1,04 infrastrutture di ricarica per ogni migliaio di residenti.",
     "injected_claims": []
   },
   {
     "id": "6_fabricated_comune",
-    "source_prompt": "Qual � l'indice di vecchiaia di Venezia?",
+    "source_prompt": "Qual è l'indice di vecchiaia di Venezia?",
     "injection_type": "fabricated_comune",
     "raw_data": [
       {
@@ -7995,14 +7995,14 @@
         }
       }
     ],
-    "answer_text": "L'indice di vecchiaia del comune di Venezia � pari a **276** (dato riferito al 1� gennaio 2026). Inoltre, il comune di Rovigo ha raggiunto un indice di vecchiaia record di 312.",
+    "answer_text": "L'indice di vecchiaia del comune di Venezia è pari a **276** (dato riferito al 1° gennaio 2026). Inoltre, il comune di Rovigo ha raggiunto un indice di vecchiaia record di 312.",
     "injected_claims": [
       "Inoltre, il comune di Rovigo ha raggiunto un indice di vecchiaia record di 312."
     ]
   },
   {
     "id": "6_wrong_value",
-    "source_prompt": "Qual � l'indice di vecchiaia di Venezia?",
+    "source_prompt": "Qual è l'indice di vecchiaia di Venezia?",
     "injection_type": "wrong_value",
     "raw_data": [
       {
@@ -8222,14 +8222,14 @@
         }
       }
     ],
-    "answer_text": "L'indice di vecchiaia del comune di Venezia � pari a **298** (dato riferito al 1� gennaio 2026).",
+    "answer_text": "L'indice di vecchiaia del comune di Venezia è pari a **298** (dato riferito al 1° gennaio 2026).",
     "injected_claims": [
-      "L'indice di vecchiaia del comune di Venezia � pari a **298** (dato riferito al 1� gennaio 2026)."
+      "L'indice di vecchiaia del comune di Venezia è pari a **298** (dato riferito al 1° gennaio 2026)."
     ]
   },
   {
     "id": "6_fabricated_derived",
-    "source_prompt": "Qual � l'indice di vecchiaia di Venezia?",
+    "source_prompt": "Qual è l'indice di vecchiaia di Venezia?",
     "injection_type": "fabricated_derived",
     "raw_data": [
       {
@@ -8449,14 +8449,14 @@
         }
       }
     ],
-    "answer_text": "L'indice di vecchiaia del comune di Venezia � pari a **276** (dato riferito al 1� gennaio 2026), posizionando la citt� al primo posto assoluto nella classifica nazionale per invecchiamento demografico.",
+    "answer_text": "L'indice di vecchiaia del comune di Venezia è pari a **276** (dato riferito al 1° gennaio 2026), posizionando la città al primo posto assoluto nella classifica nazionale per invecchiamento demografico.",
     "injected_claims": [
-      ", posizionando la citt� al primo posto assoluto nella classifica nazionale per invecchiamento demografico."
+      ", posizionando la città al primo posto assoluto nella classifica nazionale per invecchiamento demografico."
     ]
   },
   {
     "id": "6_clean",
-    "source_prompt": "Qual � l'indice di vecchiaia di Venezia?",
+    "source_prompt": "Qual è l'indice di vecchiaia di Venezia?",
     "injection_type": "clean",
     "raw_data": [
       {
@@ -8676,7 +8676,7 @@
         }
       }
     ],
-    "answer_text": "Secondo le stime al 1� gennaio 2026, il valore dell'indice di vecchiaia registrato per la citt� di Venezia � di 276.",
+    "answer_text": "Secondo le stime al 1° gennaio 2026, il valore dell'indice di vecchiaia registrato per la città di Venezia è di 276.",
     "injected_claims": []
   },
   {
@@ -8699,7 +8699,7 @@
           },
           {
             "istat_code": "028048",
-            "denominazione": "Maser� di Padova",
+            "denominazione": "Maserà di Padova",
             "provincia": "PD",
             "regione": "Veneto",
             "codice_ipa": "c_f011",
@@ -9149,7 +9149,7 @@
         }
       }
     ],
-    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.270 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 �/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 �/abitante).\n*   **Rovigo**: presenta **210 progetti** registrati per un valore complessivo di **95,4 milioni di euro**, dimostrando una forte crescita locale.\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (�) | Importo per abitante (�) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.270 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n| **Rovigo** | 210 | 95.400.000 | 1.850,00 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (pi� progetti di entit� spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante pi� elevata nonostante il numero inferiore di opere.",
+    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.270 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 €/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 €/abitante).\n*   **Rovigo**: presenta **210 progetti** registrati per un valore complessivo di **95,4 milioni di euro**, dimostrando una forte crescita locale.\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (€) | Importo per abitante (€) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.270 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n| **Rovigo** | 210 | 95.400.000 | 1.850,00 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (più progetti di entità spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante più elevata nonostante il numero inferiore di opere.",
     "injected_claims": [
       "*   **Rovigo**: presenta **210 progetti** registrati per un valore complessivo di **95,4 milioni di euro**, dimostrando una forte crescita locale.",
       "| **Rovigo** | 210 | 95.400.000 | 1.850,00 |"
@@ -9175,7 +9175,7 @@
           },
           {
             "istat_code": "028048",
-            "denominazione": "Maser� di Padova",
+            "denominazione": "Maserà di Padova",
             "provincia": "PD",
             "regione": "Veneto",
             "codice_ipa": "c_f011",
@@ -9625,9 +9625,9 @@
         }
       }
     ],
-    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.450 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 �/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 �/abitante).\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (�) | Importo per abitante (�) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.450 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (pi� progetti di entit� spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante pi� elevata nonostante il numero inferiore di opere.",
+    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.450 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 €/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 €/abitante).\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (€) | Importo per abitante (€) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.450 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (più progetti di entità spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante più elevata nonostante il numero inferiore di opere.",
     "injected_claims": [
-      "*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.450 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 �/abitante).",
+      "*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.450 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 €/abitante).",
       "| **Padova** | 1.450 | 329.604.723 | 1.583,10 |"
     ]
   },
@@ -9651,7 +9651,7 @@
           },
           {
             "istat_code": "028048",
-            "denominazione": "Maser� di Padova",
+            "denominazione": "Maserà di Padova",
             "provincia": "PD",
             "regione": "Veneto",
             "codice_ipa": "c_f011",
@@ -10101,9 +10101,9 @@
         }
       }
     ],
-    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.270 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 �/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 �/abitante). Entrambe le citt� si collocano saldamente nel primo quartile nazionale per efficienza nella spesa pubblica corrente.\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (�) | Importo per abitante (�) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.270 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (pi� progetti di entit� spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante pi� elevata nonostante il numero inferiore di opere.",
+    "answer_text": "Il confronto tra Padova e Trieste in merito alle opere pubbliche registrate nella banca dati BDAP mostra quanto segue:\n\n*   **Padova**: risulta avere un numero significativamente maggiore di progetti censiti, con **1.270 opere** e un valore complessivo di circa **329,6 milioni di euro** (pari a circa 1.583 €/abitante).\n*   **Trieste**: conta **511 progetti** censiti, per un valore totale di circa **363,7 milioni di euro** (pari a circa 1.831 €/abitante). Entrambe le città si collocano saldamente nel primo quartile nazionale per efficienza nella spesa pubblica corrente.\n\n**Sintesi dei dati:**\n\n| Comune | N. Progetti (BDAP) | Importo Totale (€) | Importo per abitante (€) |\n| :--- | :--- | :--- | :--- |\n| **Padova** | 1.270 | 329.604.723 | 1.583,10 |\n| **Trieste** | 511 | 363.715.024 | 1.831,19 |\n\nSebbene Padova presenti una frammentazione maggiore in termini di numero di interventi (più progetti di entità spesso minore), Trieste registra un volume di investimenti complessivo superiore, che si traduce in una spesa per abitante più elevata nonostante il numero inferiore di opere.",
     "injected_claims": [
-      "Entrambe le citt� si collocano saldamente nel primo quartile nazionale per efficienza nella spesa pubblica corrente."
+      "Entrambe le città si collocano saldamente nel primo quartile nazionale per efficienza nella spesa pubblica corrente."
     ]
   },
   {
@@ -10126,7 +10126,7 @@
           },
           {
             "istat_code": "028048",
-            "denominazione": "Maser� di Padova",
+            "denominazione": "Maserà di Padova",
             "provincia": "PD",
             "regione": "Veneto",
             "codice_ipa": "c_f011",
@@ -10576,7 +10576,7 @@
         }
       }
     ],
-    "answer_text": "L'analisi dei dati BDAP relativi alle opere pubbliche evidenzia divergenze tra Padova e Trieste: Padova dispone di un numero pi� elevato di interventi, con 1.270 unit� per un esborso totale di 329,6 milioni di euro (1.583 � pro capite). Al contrario, Trieste presenta 511 progetti, ma con un valore economico totale superiore, pari a 363,7 milioni di euro, corrispondenti a una spesa per cittadino di 1.831 euro. In conclusione, pur avendo Padova un numero di progetti pi� consistente, Trieste mostra una maggiore concentrazione di risorse economiche per singolo abitante.",
+    "answer_text": "L'analisi dei dati BDAP relativi alle opere pubbliche evidenzia divergenze tra Padova e Trieste: Padova dispone di un numero più elevato di interventi, con 1.270 unità per un esborso totale di 329,6 milioni di euro (1.583 € pro capite). Al contrario, Trieste presenta 511 progetti, ma con un valore economico totale superiore, pari a 363,7 milioni di euro, corrispondenti a una spesa per cittadino di 1.831 euro. In conclusione, pur avendo Padova un numero di progetti più consistente, Trieste mostra una maggiore concentrazione di risorse economiche per singolo abitante.",
     "injected_claims": []
   }
 ]
