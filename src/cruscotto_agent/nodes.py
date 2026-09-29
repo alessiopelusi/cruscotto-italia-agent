@@ -30,11 +30,7 @@ def extract_tool_data(messages):
 
 async def verify_node(state):
     """Verifica la veridicità dei dati presenti nell'ultima risposta controllando i dati grezzi restituiti da tutti i ToolMessage."""
-    last_answer = state["messages"][-1].content
-    if isinstance(last_answer, list):
-        last_answer_text = " ".join(b.get("text", "") for b in last_answer if isinstance(b, dict))
-    else:
-        last_answer_text = last_answer
+    last_answer_text = extract_answer_text(state["messages"][-1].content)
     raw_data = extract_tool_data(state["messages"])
 
     user_prompt = f"""DATI GREZZI:
@@ -48,10 +44,10 @@ async def verify_node(state):
     attempts = state.get("grounding_attempts", 0) + 1
 
     if verdict.grounded:
-        print("✅ Verificato dal giudice LLM")
+        print("Verificato dal giudice LLM")
         return {"grounded": True, "grounding_attempts": attempts}
     else:
-        print(f"⚠️ Claim non supportati secondo il giudice: {verdict.unsupported_claims}")
+        print(f"Claim non supportati secondo il giudice: {verdict.unsupported_claims}")
         if attempts >= MAX_GROUNDING_ATTEMPTS:
             alert_message = AIMessage(f"Nota: alcune affermazioni non sono state verificabili rispetto ai dati disponibili: {verdict.unsupported_claims}")
             return {"messages": [alert_message], "grounded": False, "grounding_attempts": attempts}
@@ -89,3 +85,9 @@ def route_after_verify(state):
     if state["grounded"] or state["grounding_attempts"] >= MAX_GROUNDING_ATTEMPTS:
         return END
     return "agent"
+
+def extract_answer_text(content):
+    """Estrae il testo da un content di AIMessage, che può essere str o list[dict]."""
+    if isinstance(content, list):
+        return " ".join(b.get("text", "") for b in content if isinstance(b, dict))
+    return content
