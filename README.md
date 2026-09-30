@@ -1,178 +1,178 @@
 # Cruscotto Agent
 
-Un agente conversazionale che permette a chiunque di ottenere, in linguaggio naturale, le informazioni pubbliche sul proprio comune (popolazione, redditi, scuole, opere pubbliche, raccolta differenziata, fondi PNRR) interrogando **esclusivamente** i dati ufficiali (ISTAT, MEF, ANAC, BDAP-MOP, SIOPE, MIUR, ISPRA) esposti dal server MCP [Cruscotto Italia](https://cruscotto-italia-mcp.agid.workers.dev/mcp) di AgID.
+A conversational agent that lets anyone obtain, in natural language, public information about their own municipality (population, income, schools, public works, waste recycling, PNRR funds) by querying **exclusively** the official data (ISTAT, MEF, ANAC, BDAP-MOP, SIOPE, MIUR, ISPRA) exposed by AgID's [Cruscotto Italia](https://cruscotto-italia-mcp.agid.workers.dev/mcp) MCP server.
 
-## L'obiettivo
+## The goal
 
-Questi dati sono già pubblici, ma pubblico non significa accessibile. Per rispondere a una domanda semplice come *"Quanto si guadagna in media nel mio comune, rispetto a quello accanto?"* servono oggi la conoscenza di quale portale consultare, il codice ISTAT del comune, la capacità di leggere dataset eterogenei e di confrontarli a mano.
+This data is already public, but public does not mean accessible. Answering a simple question such as *"What is the average income in my municipality, compared to the one next door?"* currently requires knowing which portal to consult, the municipality's ISTAT code, and the ability to read heterogeneous datasets and compare them by hand.
 
-L'obiettivo del progetto è togliere di mezzo quei passaggi: **una domanda, una risposta fondata sui dati ufficiali**, senza che l'utente debba sapere quale fonte contiene cosa. Il destinatario non è l'analista che sa già dove guardare, ma il cittadino, l'amministratore locale o il giornalista che ha una domanda e non un metodo per rispondersi.
+The goal of the project is to remove those steps: **one question, one answer grounded in official data**, without the user having to know which source contains what. The intended user is not the analyst who already knows where to look, but the citizen, the local administrator or the journalist who has a question and no method to answer it.
 
-## Il problema incontrato: l'affidabilità
+## The problem encountered: reliability
 
-Un'interfaccia del genere ha però senso solo se ci si può fidare di ciò che risponde, e qui è dove il progetto ha richiesto il lavoro maggiore. Proprio l'utente che ha più bisogno di questo strumento è quello che **non ha modo di accorgersi se un numero è sbagliato**: se sapesse verificarlo, non gli servirebbe lo strumento.
+An interface like this, however, only makes sense if you can trust what it answers, and this is where the project required the most work. The very user who needs this tool the most is the one who **has no way of noticing when a number is wrong**: if they could verify it, they would not need the tool.
 
-Su domande comparative ("Confronta il reddito medio tra 7 comuni pugliesi") un agente ReAct standard tende infatti a:
+On comparative questions ("Compare the average income across 7 municipalities in Puglia") a standard ReAct agent tends to:
 
-- **fabbricare comuni** non presenti nei dati recuperati, per completare la tabella richiesta;
-- **alterare valori** reali in cifre plausibili;
-- **inventare derivati** (ranking, trend, rapporti) non calcolabili dai dati grezzi effettivamente ottenuti.
+- **fabricate municipalities** not present in the retrieved data, in order to complete the requested table;
+- **alter real values** into plausible figures;
+- **invent derived facts** (rankings, trends, ratios) that cannot be computed from the raw data actually obtained.
 
-Sono errori che a occhio non si vedono: la risposta è stilisticamente coerente e i numeri sono verosimili. Un dato sbagliato su finanza pubblica o redditi, presentato con la stessa sicurezza di uno corretto, è peggio di nessuna risposta perché eredita la credibilità della fonte ufficiale senza esserne coperto.
+These are errors you cannot spot by eye: the answer is stylistically coherent and the numbers are believable. A wrong figure about public finance or income, presented with the same confidence as a correct one, is worse than no answer at all, because it inherits the credibility of the official source without being backed by it.
 
-La parte tecnicamente più impegnativa è stata quindi rendere quel rischio **misurabile e riducibile**, non eliminarlo a parole: un **ciclo di auto-correzione basato su grounding verification** e una **suite di valutazione avversariale** che quantifica quanto quel ciclo funzioni davvero. È il percorso documentato nel resto di questo README.
+The technically most demanding part was therefore making that risk **measurable and reducible**, rather than ruling it out in words: a **self-correction loop based on grounding verification** and an **adversarial evaluation suite** that quantifies how well that loop actually works. That is the path documented in the rest of this README.
 
 ---
 
-## Architettura
+## Architecture
 
-Grafo [LangGraph](https://github.com/langchain-ai/langgraph) a stato esplicito, con tre sottosistemi: routing di scope, loop ReAct sui tool MCP, verifica di grounding con retry.
+An explicit-state [LangGraph](https://github.com/langchain-ai/langgraph) graph with three subsystems: scope routing, a ReAct loop over the MCP tools, and grounding verification with retry.
 
 ```mermaid
 flowchart TD
-    S([START]) --> C[classify<br/>la domanda è in-scope?]
-    C -->|in_scope = false| O[out_of_scope<br/>rifiuto esplicito]
-    C -->|in_scope = true| A[agent<br/>LLM + tool MCP]
+    S([START]) --> C[classify<br/>is the question in scope?]
+    C -->|in_scope = false| O[out_of_scope<br/>explicit refusal]
+    C -->|in_scope = true| A[agent<br/>LLM + MCP tools]
     A -->|tool_calls| T[ToolNode<br/>search_comune · comune_kpi]
     T --> A
-    A -->|risposta finale| V[verify<br/>LLM-as-a-Judge: grounding]
+    A -->|final answer| V[verify<br/>LLM-as-a-Judge: grounding]
     V -->|grounded| E([END])
-    V -->|claim non supportati<br/>tentativi residui| A
-    V -->|tentativi esauriti| E
+    V -->|unsupported claims<br/>attempts remaining| A
+    V -->|attempts exhausted| E
     O --> E
 ```
 
-Lo stato (`AgentState`) estende `MessagesState` con tre campi che rendono il controllo di flusso ispezionabile e testabile dall'esterno: `in_scope`, `grounded`, `grounding_attempts`.
+The state (`AgentState`) extends `MessagesState` with three fields that make control flow inspectable and testable from the outside: `in_scope`, `grounded`, `grounding_attempts`.
 
 ---
 
-## Scelte tecniche da evidenziare
+## Key technical decisions
 
-**1. Verifica di grounding come nodo del grafo, non come prompt instruction.**
-Il nodo `verify` estrae i dati grezzi da *tutti* i `ToolMessage` della conversazione e li passa a un giudice LLM con output strutturato (`GroundingVerdict`: `grounded: bool`, `unsupported_claims: list[str]`). La verifica avviene contro il payload MCP effettivo, non contro la memoria del modello. Chiedere al modello "non inventare dati" nel system prompt non è una garanzia verificabile; un nodo che confronta risposta e payload lo è.
+**1. Grounding verification as a graph node, not a prompt instruction.**
+The `verify` node extracts the raw data from *all* the `ToolMessage`s in the conversation and passes it to an LLM judge with structured output (`GroundingVerdict`: `grounded: bool`, `unsupported_claims: list[str]`). Verification happens against the actual MCP payload, not against the model's memory. Telling the model "do not make up data" in the system prompt is not a verifiable guarantee; a node that compares answer and payload is.
 
-**2. La correzione rientra nel loop ReAct, non è una semplice riscrittura.**
-Il feedback del giudice viene reiniettato come `HumanMessage` nella conversazione. Questo è deliberato: l'agente può quindi **chiamare nuovi tool** per recuperare i dati mancanti, invece di limitarsi a riformulare il testo esistente. È la differenza tra "rimuovi il claim non supportato" e "vai a prendere il dato che ti serve".
+**2. The correction re-enters the ReAct loop, it is not a simple rewrite.**
+The judge's feedback is re-injected into the conversation as a `HumanMessage`. This is deliberate: the agent can therefore **call new tools** to retrieve the missing data, instead of merely rephrasing the existing text. It is the difference between "remove the unsupported claim" and "go and fetch the data you need".
 
-**3. Degradazione trasparente invece di loop infinito.**
-`MAX_GROUNDING_ATTEMPTS = 2`. Esaurito il budget, l'agente non fallisce in silenzio e non ritenta all'infinito: allega alla risposta l'elenco esplicito dei claim non verificabili. L'incertezza diventa parte dell'output.
+**3. Transparent degradation instead of an infinite loop.**
+`MAX_GROUNDING_ATTEMPTS = 2`. Once the budget is exhausted, the agent does not fail silently and does not retry forever: it attaches to the answer the explicit list of claims that could not be verified. Uncertainty becomes part of the output.
 
-**4. Classificatore di scope con l'intera history.**
-Il nodo `classify` riceve tutta la conversazione, non solo l'ultimo turno, perché lo scope di un follow-up ("e Genova?") è determinabile solo dal contesto. Blocca le richieste fuori dominio prima di spendere chiamate ai tool.
+**4. Scope classifier with the full history.**
+The `classify` node receives the whole conversation, not just the last turn, because the scope of a follow-up ("and Genova?") can only be determined from context. It blocks out-of-domain requests before spending any tool calls.
 
-**5. Whitelist dei tool MCP.**
-Il server espone sei tool; l'MVP ne abilita due (`search_comune`, `comune_kpi`) tramite `ALLOWED_TOOLS`. Scelta di budget di contesto e di determinismo: `comune_kpi` costa ~620 token per comune, mentre `comune_dashboard` restituisce payload di centinaia di KB che saturerebbero la finestra su una query comparativa a 7 comuni.
+**5. MCP tool whitelist.**
+The server exposes six tools; the MVP enables two of them (`search_comune`, `comune_kpi`) through `ALLOWED_TOOLS`. This is a context-budget and determinism decision: `comune_kpi` costs ~620 tokens per municipality, whereas `comune_dashboard` returns payloads of hundreds of KB that would saturate the window on a comparative query over 7 municipalities.
 
-**6. Un unico modello economico per tutti i ruoli.**
-Answering, judge e classifier usano lo stesso modello flash-lite con `with_structured_output()`. La qualità del sistema deriva dalla topologia del grafo e dalla verifica, non dalla taglia del modello - ipotesi verificata dalla suite di eval.
+**6. A single inexpensive model for every role.**
+Answering, judge and classifier all use the same flash-lite model with `with_structured_output()`. The quality of the system comes from the topology of the graph and from verification, not from model size - a hypothesis confirmed by the eval suite.
 
-**7. Async end-to-end e stato persistito.**
-Tutti i nodi sono `async`; la persistenza via `InMemorySaver` con `thread_id` rende le conversazioni multi-turno riproducibili e isola le run di eval una dall'altra.
+**7. Async end-to-end and persisted state.**
+All nodes are `async`; persistence via `InMemorySaver` with `thread_id` makes multi-turn conversations reproducible and isolates eval runs from one another.
 
 ---
 
-## Metodologia di valutazione
+## Evaluation methodology
 
-Il progetto include **due harness distinti**, che misurano due cose diverse: la precisione del giudice e l'efficacia del ciclo di correzione.
+The project includes **two distinct harnesses**, measuring two different things: the precision of the judge and the effectiveness of the correction loop.
 
-### A. Precisione del giudice, su dataset avversariale annotato
+### A. Judge precision, on an annotated adversarial dataset
 
-Pipeline in tre passi (`eval/collect_seeds.py` -> `eval/inject.py` -> `eval/run_judge_eval.py`):
+A three-step pipeline (`eval/collect_seeds.py` -> `eval/inject.py` -> `eval/run_judge_eval.py`):
 
-1. **Raccolta seed**: 8 domande vengono eseguite sul grafo reale; si conservano solo le risposte già grounded al primo tentativo, con i rispettivi payload MCP. Il ground truth è materiale reale, non sintetico.
-2. **Iniezione controllata**: per ogni seed un modello genera 4 varianti: tre archetipi di allucinazione (`fabricated_comune`, `wrong_value`, `fabricated_derived`) e una **parafrasi pulita di controllo**, che riformula senza alterare alcun claim. Ogni variante alterata conserva le frasi iniettate *verbatim* nel campo `injected_claims`. Totale: **32 casi annotati**.
-3. **Misura**: il giudice viene eseguito su tutti i casi e ogni verdetto classificato in TP / FP / FN / TN.
+1. **Seed collection**: 8 questions are run against the real graph; only answers already grounded on the first attempt are kept, together with their MCP payloads. The ground truth is real material, not synthetic.
+2. **Controlled injection**: for each seed a model generates 4 variants: three hallucination archetypes (`fabricated_comune`, `wrong_value`, `fabricated_derived`) and one **clean control paraphrase**, which rephrases without altering any claim. Every altered variant keeps the injected sentences *verbatim* in the `injected_claims` field. Total: **32 annotated cases**.
+3. **Measurement**: the judge is run over all cases and each verdict is classified as TP / FP / FN / TN.
 
-Due dettagli metodologici che contano:
+Two methodological details that matter:
 
-- **La variante `clean` è un controllo negativo, non riempimento.** Senza di essa si misurerebbe solo il recall, e un giudice che flagga *tutto* sembrerebbe perfetto. Il dataset misura **detection rate e false positive rate insieme**.
-- **Il dataset `_hard` neutralizza gli artefatti stilistici.** Nella prima iterazione i claim iniettati erano riconoscibili dalla forma - frasi autonome introdotte da "Inoltre…" - quindi il giudice poteva individuarli senza guardare i dati. Il prompt dell'injector è stato riscritto per **fondere** il claim nella struttura esistente (riga in più nella stessa tabella, proposizione incidentale in una frase già presente), vietando i connettivi rivelatori. La versione `hard` verifica che il giudice stia davvero confrontando risposta e payload.
+- **The `clean` variant is a negative control, not filler.** Without it only recall would be measured, and a judge that flags *everything* would look perfect. The dataset measures **detection rate and false positive rate together**.
+- **The `_hard` dataset neutralises stylistic artefacts.** In the first iteration the injected claims were recognisable by their form - standalone sentences introduced by "Inoltre…" ("Furthermore…") - so the judge could spot them without looking at the data. The injector prompt was rewritten to **blend** the claim into the existing structure (an extra row in the same table, a parenthetical clause inside a sentence that was already there), forbidding the give-away connectives. The `hard` version verifies that the judge is genuinely comparing answer and payload.
 
-### B. Riduzione delle allucinazioni end-to-end
+### B. End-to-end hallucination reduction
 
-`eval/run_hallucination_reduction.py` esegue **16 prompt avversariali** costruiti per indurre fabbricazione: ranking nazionali, tabelle a 7 comuni, richieste di peer group "comparabili" (dove il modello deve scegliere i comuni da sé), incarichi ad alta pressione come "certifica la solidità finanziaria di Napoli confrontandola con Bari, Catania e Verona". Per ogni caso si registra se la risposta era grounded **al primo tentativo** e se lo è **dopo l'auto-correzione**: la differenza tra i due valori è l'effetto misurato del ciclo.
+`eval/run_hallucination_reduction.py` runs **16 adversarial prompts** designed to induce fabrication: national rankings, tables covering 7 municipalities, requests for "comparable" peer groups (where the model has to pick the municipalities itself), and high-pressure assignments such as "certify the financial soundness of Napoli by comparing it with Bari, Catania and Verona". For each case it records whether the answer was grounded **on the first attempt** and whether it is grounded **after self-correction**: the difference between the two values is the measured effect of the loop.
 
-### Risultati
+### Results
 
-Entrambi gli script stampano la metrica aggregata in chiusura.
+Both scripts print the aggregate metric at the end.
 
-| Harness | Metrica | Valore |
+| Harness | Metric | Value |
 | --- | --- | --- |
-| `run_judge_eval.py`: dataset `_hard` | detection rate dei claim non supportati iniettati | **100%** (24/24) |
-| `run_judge_eval.py`: dataset `_hard` | false positive rate sui controlli puliti | **0%** (0/8) |
-| `run_hallucination_reduction.py`: 16 prompt | risposte allucinate: primo tentativo -> dopo auto-correzione | **19% -> 0%** (3/16 -> 0/16) |
+| `run_judge_eval.py`: `_hard` dataset | detection rate of injected unsupported claims | **100%** (24/24) |
+| `run_judge_eval.py`: `_hard` dataset | false positive rate on clean controls | **0%** (0/8) |
+| `run_hallucination_reduction.py`: 16 prompts | hallucinated answers: first attempt -> after self-correction | **19% -> 0%** (3/16 -> 0/16) |
 
-Il giudice separa correttamente tutte e tre le categorie di iniezione dai controlli puliti, inclusa `wrong_value`, che è la più insidiosa, perché altera una singola cifra all'interno di una frase per il resto corretta.
+The judge correctly separates all three injection categories from the clean controls, including `wrong_value`, which is the most insidious one, because it alters a single figure inside an otherwise correct sentence.
 
-Sul risultato va detto con chiarezza cosa **non** significa: 32 casi derivati da 8 seed sono un campione piccolo, e su 8 soli controlli puliti l'intervallo di confidenza del false positive rate resta ampio. Il valore del numero sta nel fatto che è stato ottenuto **dopo** aver irrobustito il dataset: sulla prima iterazione un punteggio alto sarebbe stato in parte dovuto agli artefatti stilistici descritti sopra, non alla verifica sui dati.
+It is worth stating clearly what the result does **not** mean: 32 cases derived from 8 seeds are a small sample, and with only 8 clean controls the confidence interval on the false positive rate remains wide. The value of the number lies in the fact that it was obtained **after** hardening the dataset: on the first iteration a high score would have been due in part to the stylistic artefacts described above, not to verification against the data.
 
-Nell'harness end-to-end i 3 casi intercettati al primo tentativo sono istruttivi, perché mostrano che il giudice non lavora solo sui numeri:
+In the end-to-end harness the 3 cases caught on the first attempt are instructive, because they show that the judge does not work on numbers alone:
 
-- **confusione tra colonne**: l'agente aveva riportato il numero di strutture ricettive di Trieste al posto dei posti letto: un errore fattuale reale, non un'invenzione;
-- **interpretazione non supportata**: affermazioni come "la concentrazione di valore storico per metro quadro è tra le più alte al mondo" o giudizi sull'impatto del turismo, non derivabili da un conteggio di strutture e letti;
-- **causalità inventata**: la spiegazione dei divari di reddito con la diversa natura dei tessuti economici locali, plausibile ma assente dai dati recuperati.
+- **column confusion**: the agent had reported Trieste's number of accommodation facilities in place of its number of beds: a genuine factual error, not a fabrication;
+- **unsupported interpretation**: statements such as "the concentration of historical value per square metre is among the highest in the world", or judgements about the impact of tourism, which cannot be derived from a count of facilities and beds;
+- **invented causality**: explaining income gaps through the different nature of local economic fabrics, plausible but absent from the retrieved data.
 
-Tutti e tre sono stati corretti al secondo tentativo, rientrando nel budget di `MAX_GROUNDING_ATTEMPTS`. La categoria più frequente non è il numero sbagliato ma il **commento che eccede i dati**: è il tipo di affermazione che un lettore non esperto accetterebbe senza esitazione, ed è esattamente ciò che questo sistema deve intercettare.
+All three were corrected on the second attempt, within the `MAX_GROUNDING_ATTEMPTS` budget. The most frequent category is not the wrong number but the **comment that goes beyond the data**: it is the kind of statement a non-expert reader would accept without hesitation, and it is exactly what this system has to intercept.
 
 ---
 
-## Struttura del repository
+## Repository structure
 
 ```
 src/cruscotto_agent/
-├── graph.py         # composizione del grafo: nodi, archi condizionali, compile
-├── nodes.py         # classify · verify · out_of_scope · call_model + funzioni di routing
+├── graph.py         # graph composition: nodes, conditional edges, compile
+├── nodes.py         # classify · verify · out_of_scope · call_model + routing functions
 ├── schemas.py       # AgentState, IntentClassification, GroundingVerdict (Pydantic)
-├── models.py        # factory dei modelli, structured output per judge e classifier
-├── mcp_setup.py     # client MCP streamable-http + whitelist dei tool
+├── models.py        # model factories, structured output for judge and classifier
+├── mcp_setup.py     # streamable-http MCP client + tool whitelist
 └── eval/
-    ├── collect_seeds.py               # step 1 — seed reali già grounded
-    ├── inject.py                      # step 2 — generazione varianti avversariali
-    ├── run_judge_eval.py              # step 3 — TP/FP/FN/TN del giudice
-    ├── run_hallucination_reduction.py # end-to-end: effetto del ciclo di correzione
+    ├── collect_seeds.py               # step 1 — real, already grounded seeds
+    ├── inject.py                      # step 2 — generation of adversarial variants
+    ├── run_judge_eval.py              # step 3 — judge TP/FP/FN/TN
+    ├── run_hallucination_reduction.py # end-to-end: effect of the correction loop
     └── schemas.py                     # InjectionCase, InjectionType
 eval_data/
-├── seeds.json                   # 8 seed grounded con i relativi payload MCP
-├── injection_cases.json         # 32 casi, prima iterazione
-└── injection_cases_hard.json    # 32 casi, claim fusi stilisticamente
-main.py              # entry point: run su un prompt di esempio
+├── seeds.json                   # 8 grounded seeds with their MCP payloads
+├── injection_cases.json         # 32 cases, first iteration
+└── injection_cases_hard.json    # 32 cases, stylistically blended claims
+main.py              # entry point: run on a sample prompt
 ```
 
 ---
 
 ## Setup
 
-Requisiti: Python 3.12+, [uv](https://docs.astral.sh/uv/), una API key Google AI Studio.
+Requirements: Python 3.12+, [uv](https://docs.astral.sh/uv/), a Google AI Studio API key.
 
 ```bash
 uv sync
-echo "GOOGLE_API_KEY=la-tua-chiave" > .env
+echo "GOOGLE_API_KEY=your-key" > .env
 ```
 
-Il server MCP è pubblico e non richiede autenticazione (rate limit: 60 richieste/minuto per IP).
+The MCP server is public and requires no authentication (rate limit: 60 requests/minute per IP).
 
-## Esecuzione
+## Running
 
 ```bash
-# run singola sul prompt di esempio in main.py
+# single run on the sample prompt in main.py
 uv run python main.py
 
-# suite di valutazione (dalla root del repo: i path dei dataset sono relativi)
-# senza argomenti usa il dataset di riferimento, injection_cases_hard.json
+# evaluation suite (from the repo root: dataset paths are relative)
+# with no arguments it uses the reference dataset, injection_cases_hard.json
 uv run python -m cruscotto_agent.eval.run_judge_eval
 uv run python -m cruscotto_agent.eval.run_judge_eval eval_data/injection_cases.json
 uv run python -m cruscotto_agent.eval.run_hallucination_reduction
 
-# rigenerare il dataset avversariale da zero
+# regenerate the adversarial dataset from scratch
 uv run python -m cruscotto_agent.eval.collect_seeds
 uv run python -m cruscotto_agent.eval.inject
 ```
 
 ---
 
-## Limiti noti e sviluppi
+## Known limitations and next steps
 
-- **Il giudice è lo stesso modello che risponde.** Riduce i costi e rende il sistema autocontenuto, ma introduce correlazione degli errori: un cross-check con un modello di famiglia diversa è il passo successivo naturale.
-- **Grounding ≠ completezza.** La verifica intercetta le affermazioni non supportate, non le omissioni: una risposta corretta ma parziale passa come grounded.
-- **Due tool su sei.** `comune_dashboard` e le query censuarie sub-comunali sbloccherebbero analisi molto più profonde, ma richiedono una strategia di compattazione del contesto prima di poter entrare nel loop.
-- **Nessun test unitario sui nodi.** La validazione oggi è interamente comportamentale, attraverso le due suite di eval.
+- **The judge is the same model that answers.** This keeps costs down and makes the system self-contained, but it introduces error correlation: a cross-check with a model from a different family is the natural next step.
+- **Grounding ≠ completeness.** Verification catches unsupported statements, not omissions: an answer that is correct but partial passes as grounded.
+- **Two tools out of six.** `comune_dashboard` and the sub-municipal census queries would unlock far deeper analyses, but they require a context-compaction strategy before they can enter the loop.
+- **No unit tests on the nodes.** Validation today is entirely behavioural, through the two eval suites.
