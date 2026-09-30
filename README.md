@@ -1,4 +1,4 @@
-# Cruscotto Agent
+# Cruscotto Italia Agent
 
 A conversational agent that lets anyone obtain, in natural language, public information about their own municipality (population, income, schools, public works, waste recycling, PNRR funds) by querying **exclusively** the official data (ISTAT, MEF, ANAC, BDAP-MOP, SIOPE, MIUR, ISPRA) exposed by AgID's [Cruscotto Italia](https://cruscotto-italia-mcp.agid.workers.dev/mcp) MCP server.
 
